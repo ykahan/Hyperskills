@@ -24,4 +24,13 @@ public class Numbers {
         boolean isInteger = isInteger(cupsCoffeeNumber);
         return isPositive && isInteger;
     }
+
+    static boolean enforcePositiveInteger(double amountDouble) {
+        boolean isPositiveInteger = isPositiveInteger(amountDouble);
+        if(!isPositiveInteger){
+            System.out.println("Error: Not a positive integer");
+            return true;
+        }
+        return false;
+    }
 }

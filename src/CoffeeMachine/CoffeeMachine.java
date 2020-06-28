@@ -7,6 +7,7 @@ public class CoffeeMachine {
 
     public static void main(String[] args) {
         CoffeeMachine cf = new CoffeeMachine();
+        int waterAvailable = cf.getWaterAvailable();
         int cups = cf.getCupsCoffee();
         cf.print(cups);
     }
@@ -19,37 +20,46 @@ public class CoffeeMachine {
         return cups * 50;
     }
 
-    public int getGramsCoffeeeans(int cups) {
+    public int getGramsCoffeeBeans(int cups) {
         return cups * 15;
     }
 
-    public int getCupsCoffee() {
+    public int getAmount(String material, String units){
         boolean gotPositiveInt = false;
-        double cupsCoffeeNumber = -1.0;
-        while (!gotPositiveInt) {
-            System.out.println("How many cups of coffee do you want?");
+        double amountDouble = 0.0;
+        while(!gotPositiveInt){
+            System.out.println("How many " + units + " of " + material + "?");
             System.out.println("Please make sure to enter a positive integer.");
-            String cupsCoffee = scanner.nextLine();
-            cupsCoffeeNumber = Numbers.getNumber(cupsCoffee);
+            String amountString = scanner.nextLine();
+            amountDouble = Numbers.getNumber(amountString);
 
-            boolean isPositiveInteger = Numbers.isPositiveInteger(cupsCoffeeNumber);
-            if(!isPositiveInteger){
-                System.out.println("Error: That was not a positive integer.");
-                continue;
-            }
+            if (Numbers.enforcePositiveInteger(amountDouble)) continue;
             gotPositiveInt = true;
-
-
         }
-        int integerResponse = (int) cupsCoffeeNumber;
-        return integerResponse;
+        return (int) amountDouble;
+    }
+
+    public int getCoffeeBeansAvailable(){
+        return getAmount("coffee beans", "grams");
+    }
+
+    public int getMilkAvailable(){
+        return getAmount("milk", "milliliters");
+    }
+
+    public int getWaterAvailable(){
+       return getAmount("water", "milliliters");
+    }
+
+    public int getCupsCoffee() {
+        return getAmount("coffee", "cups");
     }
 
 
     public String toString(int cups) {
         int water = getMlWater(cups);
         int milk = getMlMilk(cups);
-        int beans = getGramsCoffeeeans(cups);
+        int beans = getGramsCoffeeBeans(cups);
 
         StringBuilder sb = new StringBuilder();
         sb.append("For " + cups + " cups of coffee you will need:\n");
