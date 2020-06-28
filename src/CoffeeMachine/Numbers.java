@@ -29,9 +29,9 @@ public class Numbers {
         boolean isPositiveInteger = isPositiveInteger(amountDouble);
         if(!isPositiveInteger){
             Messages.notPositiveIntegerError();
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
 }
