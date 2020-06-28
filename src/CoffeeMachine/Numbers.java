@@ -28,9 +28,10 @@ public class Numbers {
     static boolean enforcePositiveInteger(double amountDouble) {
         boolean isPositiveInteger = isPositiveInteger(amountDouble);
         if(!isPositiveInteger){
-            System.out.println("Error: Not a positive integer");
+            Messages.notPositiveIntegerError();
             return true;
         }
         return false;
     }
+
 }
