@@ -25,21 +25,26 @@ public class CoffeeMachine {
 
     public int getCupsCoffee() {
         boolean gotPositiveInt = false;
-        int integerResponse = -1;
+        double cupsCoffeeNumber = -1.0;
         while (!gotPositiveInt) {
             System.out.println("How many cups of coffee do you want?");
             System.out.println("Please make sure to enter a positive integer.");
-            String response = scanner.nextLine();
-            try {
-                integerResponse = Integer.parseInt(response);
-                if (integerResponse > 0) gotPositiveInt = true;
-                else System.out.println("Sorry, your response must be a postive number.");
-            } catch (NumberFormatException e) {
-                System.out.println("That's not an integer.  Please try again.");
+            String cupsCoffee = scanner.nextLine();
+            cupsCoffeeNumber = Numbers.getNumber(cupsCoffee);
+
+            boolean isPositiveInteger = Numbers.isPositiveInteger(cupsCoffeeNumber);
+            if(!isPositiveInteger){
+                System.out.println("Error: That was not a positive integer.");
+                continue;
             }
+            gotPositiveInt = true;
+
+
         }
+        int integerResponse = (int) cupsCoffeeNumber;
         return integerResponse;
     }
+
 
     public String toString(int cups) {
         int water = getMlWater(cups);
