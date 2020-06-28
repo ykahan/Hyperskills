@@ -17,4 +17,8 @@ public class Messages {
     static void extraCups(int extraCups){
         System.out.println("Can make an extra " + extraCups + " cups of coffee.");
     }
+
+    static void doNotHaveEnoughIngredients(){
+        System.out.println("Do not have enough ingredients to make the requested coffee.");
+    }
 }

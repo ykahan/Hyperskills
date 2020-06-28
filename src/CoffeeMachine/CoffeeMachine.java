@@ -14,8 +14,11 @@ public class CoffeeMachine {
         int milkAvailable = cf.getMilkAvailable();
         int coffeeBeansAvailable = cf.getCoffeeBeansAvailable();
         int cups = cf.getCupsCoffee();
+
         boolean haveEnough = cf.haveEnough(cups, waterAvailable, milkAvailable, coffeeBeansAvailable);
         if(haveEnough) Messages.haveEnoughIngredients(cups);
+        else Messages.doNotHaveEnoughIngredients();
+
         int extraCups = cf.extraCupsPossible(cups, waterAvailable, milkAvailable, coffeeBeansAvailable);
         if(extraCups > 0) Messages.extraCups(extraCups);
     }
