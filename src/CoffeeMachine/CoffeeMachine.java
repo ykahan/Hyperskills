@@ -13,14 +13,25 @@ public class CoffeeMachine {
         int waterAvailable = cf.getWaterAvailable();
         int milkAvailable = cf.getMilkAvailable();
         int coffeeBeansAvailable = cf.getCoffeeBeansAvailable();
-        int cups = cf.getCupsCoffee();
+        int cupsRequested = cf.getCupsCoffeeRequested();
+        int cupsPossible = cf.getCupsCoffeePossible(waterAvailable, milkAvailable, coffeeBeansAvailable);
 
-        boolean haveEnough = cf.haveEnough(cups, waterAvailable, milkAvailable, coffeeBeansAvailable);
-        if(haveEnough) Messages.haveEnoughIngredients(cups);
-        else Messages.doNotHaveEnoughIngredients();
+        boolean haveEnough = cf.haveEnough(cupsRequested, cupsPossible);
+        if(haveEnough) Messages.haveEnoughIngredients(cupsRequested);
+        else Messages.doNotHaveEnoughIngredients(cupsPossible);
 
-        int extraCups = cf.extraCupsPossible(cups, waterAvailable, milkAvailable, coffeeBeansAvailable);
+        int extraCups = cf.extraCupsPossible(cupsRequested, waterAvailable, milkAvailable, coffeeBeansAvailable);
         if(extraCups > 0) Messages.extraCups(extraCups);
+    }
+
+    public int getCupsCoffeePossible(int waterAvailable, int milkAvailable, int coffeeBeansAvailable){
+        int waterFor = waterAvailable / WATER_PER_CUP;
+        int milkFor = milkAvailable / MILK_PER_CUP;
+        int beansFor = coffeeBeansAvailable / BEANS_PER_CUP;
+        int least = waterFor;
+        if (milkFor < least) least = milkFor;
+        if(beansFor < least) least = beansFor;
+        return least;
     }
 
     public int sufficientIngredient(String ingredient, int amount){
@@ -46,11 +57,8 @@ public class CoffeeMachine {
 
     }
 
-    public boolean haveEnough(int cupsWanted, int waterAvailable, int milkAvailable, int coffeeBeansAvailable){
-        boolean enoughWater = waterAvailable >= getMlWaterNeeded(cupsWanted);
-        boolean enoughMilk = milkAvailable >= getMlMilkNeeded(cupsWanted);
-        boolean enoughBeans = coffeeBeansAvailable >= getGramsCoffeeBeansNeeded(cupsWanted);
-        return enoughWater && enoughMilk && enoughBeans;
+    public boolean haveEnough(int cupsWanted, int cupsPossible){
+        return cupsPossible >= cupsWanted;
     }
 
     public int getMlWaterNeeded(int cups) {
@@ -91,7 +99,7 @@ public class CoffeeMachine {
        return getAmount("water", "milliliters");
     }
 
-    public int getCupsCoffee() {
+    public int getCupsCoffeeRequested() {
         return getAmount("coffee", "cups");
     }
 

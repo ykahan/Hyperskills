@@ -11,14 +11,14 @@ public class Messages {
     }
 
     static void haveEnoughIngredients(int cups){
-        System.out.println("Can make " + cups + " cups of coffee.");
+        System.out.println("Yes, I can make that amount of coffee.");
     }
 
     static void extraCups(int extraCups){
-        System.out.println("Can make an extra " + extraCups + " cups of coffee.");
+        System.out.println("Yes, I can make that amount of coffee (and even " + extraCups + " more than that)");
     }
 
-    static void doNotHaveEnoughIngredients(){
-        System.out.println("Do not have enough ingredients to make the requested coffee.");
+    static void doNotHaveEnoughIngredients(int cups){
+        System.out.println("No, I can make only " + cups + " cup(s) of coffee");
     }
 }
